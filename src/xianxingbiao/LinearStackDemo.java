@@ -46,6 +46,10 @@ class LinearStack{
         return false;
     }
 
+    /**
+     * 出栈函数
+     * @return 返回出栈的数据
+     */
     public int pop(){
         if(top==-1){
             System.out.println("栈已空，请执行其它操作");
