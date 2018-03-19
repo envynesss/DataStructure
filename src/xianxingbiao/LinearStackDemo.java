@@ -8,6 +8,7 @@ public class LinearStackDemo {
         ls.push(2);
         ls.push(3);
         System.out.println(ls.pop());
+        ls.push(3);
         System.out.println(ls.pop());
         System.out.println(ls.pop());
     }
