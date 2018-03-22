@@ -47,7 +47,7 @@ class LinkStack{
     }
 
     /**
-     *
+     * 出栈函数
      * @return 出栈的数据,栈空时返回-1
      */
     public int pop(){
