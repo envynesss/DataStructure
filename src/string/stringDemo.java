@@ -2,7 +2,7 @@ package string;
 
 public class stringDemo {
     public static void main(String[] args) {
-        strindex1("abcdef","abcdef",0);
+        get_next("abcabcx");
     }
 
     /**
@@ -56,21 +56,23 @@ public class stringDemo {
         System.out.println("不存在");
         return -1;
     }
-
+    //abcabcx
     public static void get_next(String str){
         int str_len = str.length();
         int[] next = new int[str_len];
         next[0] = 0;
-        next[1] = 1;
-        int i = 0;
-        int j = 2;
-        while(i<j){
-            if(true){
-
-            }
-
+        int i = 1;
+        int j = 0;
+        while(i<str_len){
+           if(j==0||str.charAt(i)==str.charAt(j)){
+               i++;
+               j++;
+               next[i] = j;
+           }else{
+               j = next[j-1];
+           }
         }
+        System.out.println(next);
     }
-
 }
 
