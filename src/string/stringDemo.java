@@ -1,8 +1,10 @@
 package string;
 
+import java.util.Arrays;
+
 public class stringDemo {
     public static void main(String[] args) {
-        get_next("abcabcx");
+        strindexKPM("abcx","cx",0);
     }
 
     /**
@@ -45,7 +47,7 @@ public class stringDemo {
                 i++;
                 j++;
             }else{
-                i = i-j+1;
+                i = i-j+1;// 退回到上次匹配首位的下一位
                 j = 0;
             }
         }
@@ -56,23 +58,54 @@ public class stringDemo {
         System.out.println("不存在");
         return -1;
     }
-    //abcabcx
-    public static void get_next(String str){
+    //abcabcx 求字符串的next值
+    public static int[] get_next(String str){
         int str_len = str.length();
         int[] next = new int[str_len];
-        next[0] = 0;
-        int i = 1;
-        int j = 0;
-        while(i<str_len){
-           if(j==0||str.charAt(i)==str.charAt(j)){
-               i++;
-               j++;
-               next[i] = j;
-           }else{
-               j = next[j-1];
-           }
+        next[0] = -1;
+        int suffix = 0;  // 后缀
+        int prefix = -1;  // 前缀
+        while(suffix<str_len-1){
+            //若前缀索引为-1或相等，则前缀后缀索引均+1
+            if(prefix==-1||str.charAt(prefix)==str.charAt(suffix)){
+                suffix++;
+                prefix++;
+                next[suffix] = prefix;
+                /*//改进的地方
+                if (str.charAt(prefix) == str.charAt(suffix)) {
+                    next[suffix] = next[prefix];
+                } else {
+                    next[suffix] = prefix;
+                }*/
+            }else{
+                prefix = next[prefix]; // 回溯到next[prefix]
+            }
         }
-        System.out.println(next);
+        //System.out.println(Arrays.toString(next));
+        return next;
+    }
+
+    public static int strindexKPM(String s1,String s2,int pos){
+        int len1 = s1.length();
+        int len2 = s2.length();
+        int suffix = pos;
+        int prefix = 0;
+        int[] next = get_next(s2);
+        while(prefix<len2&&suffix<len1){
+            if(prefix==-1||s1.charAt(suffix)==s2.charAt(prefix)){
+                suffix++;
+                prefix++;
+
+            }else{
+                prefix = next[prefix];
+            }
+        }
+        if(prefix==len2){
+            System.out.println(suffix-prefix);
+            return suffix-prefix;//根据next数组的指示j进行回溯，而i永远不会回溯
+        }
+        System.out.println("不存在");
+        return -1;
     }
 }
 
