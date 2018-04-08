@@ -52,24 +52,3 @@ public class NDGraphDemo {
     }
 
 }
-class NDGraph{
-    int maxNumVer; //最大顶点数
-    String[] Vertex; //顶点
-    int[][] Arc; //弧
-    int curNumVer, curNumArc;
-
-    public NDGraph(int maxNumVer){
-        this.maxNumVer = maxNumVer;
-        Vertex = new String[maxNumVer];
-        Arc = new int[maxNumVer][maxNumVer];
-        curNumArc = 0;
-        curNumVer = 0;
-    }
-
-    public void createNDGraph(int NumArc, int NumVer, String[] vers, int[][] arc){
-        this.Vertex = vers;
-        this.Arc = arc;
-        this.curNumArc = NumArc;
-        this.curNumVer = NumVer;
-    }
-}
