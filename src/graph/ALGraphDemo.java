@@ -1,5 +1,7 @@
 package graph;
 
+import javafx.scene.control.ListView;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -17,6 +19,19 @@ public class ALGraphDemo {
             alGraph.AdjList[i] = newNode;
         }
         System.out.println(Arrays.toString(alGraph.AdjList));
+
+        System.out.println("请输入边上的顶点序号");
+        for(int k=0;k<alGraph.numEdges;k++){
+            int i = scan.nextInt(); //
+            int j = scan.nextInt(); //临接序号为j
+            
+            EdgeNode edgeNode1 = new EdgeNode(i);
+            alGraph.AdjList[j].firstedge = edgeNode1;
+
+            EdgeNode edgeNode2 = new EdgeNode(j);
+            alGraph.AdjList[i].firstedge = edgeNode2;
+
+        }
     }
 
 
@@ -42,6 +57,10 @@ class EdgeNode {
     int adjvex;
     int weight;
     EdgeNode next;
+
+    public EdgeNode (int adjvex) {
+        this.adjvex = adjvex;
+    }
 }
 class VertexNode {
     String vertex;
