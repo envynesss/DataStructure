@@ -24,7 +24,7 @@ public class ALGraphDemo {
         for(int k=0;k<alGraph.numEdges;k++){
             int i = scan.nextInt(); //
             int j = scan.nextInt(); //临接序号为j
-            
+
             EdgeNode edgeNode1 = new EdgeNode(i);
             alGraph.AdjList[j].firstedge = edgeNode1;
 
