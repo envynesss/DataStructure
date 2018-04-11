@@ -53,7 +53,7 @@ public class NDGraphDemo {
         System.out.println(Arrays.toString(ndGraph.vers));
         sop(ndGraph.arc);
         ndGraph.creMinTree_Prim();
-        //readAll (ndGraph.vers, ndGraph.arc);
+
     }
 
     public static void sop (int[][] arrays) {
@@ -99,7 +99,7 @@ class NDGraph {
         this.vers = vers;
         this.arc = arc;
         this.numver = vers.length;
-        this.numarc = arc.length;
+        this.numarc = 15;
     }
 
     /**
@@ -138,7 +138,7 @@ class NDGraph {
                     adjvex[j] = k;
                 }
             }
-            System.out.println("adjvex[]..." + Arrays.toString(adjvex));
+            //System.out.println("adjvex[]..." + Arrays.toString(adjvex));
         }
     }
 
@@ -147,27 +147,47 @@ class NDGraph {
      */
     public void creMinTree_Kruskal() {
         int i, n, m;
-        Edge[] edges = new Edge[vers.length*vers.length];
+        Edge[] edges = new Edge[15];
         int[] parent = new int[vers.length];
-
-    }
-
-    public void sort(int[] array) {
-        for (int i = 0; i<array.length-1; i++) {
-            for (int j = 0; j < array.length - 1 - i; j++) {
-                if (array[j] > array[j+1]) {
-                    int temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                }
+        Arrays.sort(edges); //按照weight大小升序排列edges[]
+        for (i = 0; i < vers.length; i++) {
+            parent[i] = 0;
+        }
+        for (i = 0; i < numarc; i++) {
+            n = Find(parent, edges[i].begin);
+            m = Find(parent, edges[i].end);
+            if (n!=m) {
+                parent[n] = m;
+                System.out.println(edges[i].begin + " " + edges[i].end + " " + edges[i].weight);
             }
         }
     }
 
-    class Edge {
-        int begin;
-        int end;
-        int weight;
+    public int Find(int[] parent, int f) {
+        while (parent[f] > 0) {
+            f = parent[f];
+        }
+        return f;
+    }
+
+
+}
+
+class Edge implements Comparable{
+    int begin;
+    int end;
+    int weight;
+
+    public Edge(int begin,  int end, int weight) {
+        this.begin = begin;
+        this.end = end;
+        this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Edge edge = (Edge)o;
+        return Integer.valueOf(this.weight).compareTo(edge.weight);
     }
 }
 
