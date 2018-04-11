@@ -102,10 +102,13 @@ class NDGraph {
         this.numarc = arc.length;
     }
 
+    /**
+     * 普里姆算法
+     */
     public void creMinTree_Prim() {
-        int min ,i, j, k;
-        int adjvex[] = new int[numver];
-        int lowcost[] = new int[numver];
+        int min ,i, j, k; //k值为保存被选顶点(终点)下标,即为该点所在的列数
+        int adjvex[] = new int[numver]; //保存候选顶点(起点)的下标,即为该点所在的行数
+        int lowcost[] = new int[numver]; //保存相关顶点间边的权值,存储探索到的候选路径
         adjvex[0] = 0;
         lowcost[0] = 0;
 
@@ -117,6 +120,7 @@ class NDGraph {
         for (i = 1; i < vers.length; i++) {
             min = 65535;
             j = 1; k = 0;
+            //挑选lowcost[j]候选点中的最小值
             while (j < vers.length) {
                 if (lowcost[j] != 0 && lowcost[j] < min) {
                     min = lowcost[j];
@@ -125,7 +129,45 @@ class NDGraph {
                 j++;
             }
             System.out.println("("+ adjvex[k] + "," + k + ")");
-            lowcost[k] = 0;
+            lowcost[k] = 0; //每循环一次把最小值置零,作为已处理信号
+
+            //把探索到的小的权值给lowcost[j],以供候选
+            for (j = 1; j < vers.length; j++) {
+                if (lowcost[j] != 0 && arc[k][j] < lowcost[j]) {
+                    lowcost[j] = arc[k][j];
+                    adjvex[j] = k;
+                }
+            }
+            System.out.println("adjvex[]..." + Arrays.toString(adjvex));
         }
     }
+
+    /**
+     * 克鲁斯卡尔算法
+     */
+    public void creMinTree_Kruskal() {
+        int i, n, m;
+        Edge[] edges = new Edge[vers.length*vers.length];
+        int[] parent = new int[vers.length];
+
+    }
+
+    public void sort(int[] array) {
+        for (int i = 0; i<array.length-1; i++) {
+            for (int j = 0; j < array.length - 1 - i; j++) {
+                if (array[j] > array[j+1]) {
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    class Edge {
+        int begin;
+        int end;
+        int weight;
+    }
 }
+
