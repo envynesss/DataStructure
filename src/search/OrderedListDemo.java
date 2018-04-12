@@ -29,5 +29,26 @@ public class OrderedListDemo {
         return -1;
     }
 
+    /**
+     * 顺序表的差值查找
+     * @param arr 顺序表
+     * @param key 查找的值
+     * @return 查找值的索引
+     */
+    public static int ChazhiSearch(int[] arr, int key) {
+        int low = 0;
+        int high = arr.length;
+        while (low <= high) {
+            int mid = low + (high - low) * (key - arr[low] ) / (arr[high] - arr[low]);
+            if (key < arr[mid]) {
+                high = mid - 1;
+            } else if (key > arr[mid]) {
+                low = mid + 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
     
 }
